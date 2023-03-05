@@ -1,0 +1,16 @@
+.drawn {
+  display: flex;
+  flex-direction: column;
+  background: #f0eade75;
+  min-height: 75%;
+}
+
+.drawnNumber {
+  width: 2em;
+  text-align: center;
+  border: 1px solid var(--card-numbers-color);
+
+  line-height: 2;
+  padding: 0;
+  border-radius: 50%;
+}

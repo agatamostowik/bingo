@@ -1,0 +1,60 @@
+.num {
+  border: 1px solid var(--card-border-color);
+
+  font-family: "Jost", sans-serif;
+  font-size: 20px;
+  color: var(--card-numbers-color);
+}
+.ticket-container {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--card-border-color);
+  box-shadow: inset 0px 0px 4px 0px rgb(160 211 255),
+    rgb(38 57 77) 0px 20px 30px -10px;
+}
+.ticketNumbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  border: 1px solid var(--card-border-color);
+  width: 14em;
+  text-align: center;
+  line-height: 2.5;
+  background: linear-gradient(
+    341deg,
+    rgb(195 187 173) 0%,
+    rgba(240, 234, 222, 1) 60%
+  );
+}
+
+.ticketNumbers .material-symbols-outlined {
+  align-items: center;
+  border: 1px solid var(--card-border-color);
+  color: var(--card-numbers-color);
+  display: flex;
+  font-size: inherit;
+  justify-content: center;
+  line-height: inherit;
+}
+.ticket {
+  overflow-x: scroll;
+  display: flex;
+  gap: 30px;
+}
+.card-title-container {
+  padding: 5px;
+  border-radius: 8px 8px 0 0;
+  background: var(--card-bg-color);
+  display: flex;
+  justify-content: space-between;
+  box-shadow: inset 0px 0px 4px 0px rgb(4 11 18);
+}
+.card-title {
+  font-family: "Ultra", serif;
+  color: var(--card-numbers-color);
+  font-size: 35px;
+  text-shadow: 4px 4px 6px rgb(66 68 90 / 25%);
+}
+
+.marked {
+  border: 1px solid red;
+}
