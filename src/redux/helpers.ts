@@ -24,13 +24,13 @@ export const calculateStateWithNewDrawnNumbers = (
 
 export const calculatePlayersInTheGame = (
   state: BingoState
-): BingoState["players"] => {
+): BingoState["registeredPlayers"] => {
   if (state.winners.length > 0) {
-    return state.players.filter(
+    return state.registeredPlayers.filter(
       (player) => !state.winners.includes(player.name)
     );
   } else {
-    return state.players;
+    return state.registeredPlayers;
   }
 };
 
@@ -120,7 +120,7 @@ export const diagonalCheck = <Tticket extends BingoNumber[][]>(
 export const calculateNewWinners = (
   numbersDrawn: BingoState["numbersDrawn"],
   winners: BingoState["winners"],
-  players: BingoState["players"]
+  players: BingoState["registeredPlayers"]
 ): BingoState["winners"] => {
   const [firstPlayer, ...restPLayers] = players;
 

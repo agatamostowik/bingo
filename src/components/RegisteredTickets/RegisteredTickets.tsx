@@ -1,31 +1,37 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Ticket } from "../Ticket/Ticket.js";
-import { RootStateExtracted } from "../../redux";
+import { useAppSelector } from "../../redux";
+import classes from "./RegisteredTickets.module.css";
 import "./RegisteredTickets.css";
 
-export function RegisteredTickets() {
-  const players = useSelector((state: RootStateExtracted) => state.players);
-
-  const numbersDrawn = useSelector(
-    (state: RootStateExtracted) => state.numbersDrawn
+export const RegisteredTickets = () => {
+  const registeredPlayers = useAppSelector(
+    (state) => state.bingoReducer.registeredPlayers
+  );
+  const unregisteredPlayers = useAppSelector(
+    (state) => state.bingoReducer.unregisteredPlayers
+  );
+  const numbersDrawn = useAppSelector(
+    (state) => state.bingoReducer.numbersDrawn
   );
 
   return (
-    <section>
-      <div className="registered-tickets-title"></div>
-      <h3>Registered tickets</h3>
-      <ul className="registered-tickets ticket">
-        {players.map((player, index) => (
-          <li key={index}>
-            <Ticket
-              name={player.name}
-              numbers={player.ticket}
-              numbersDrawn={numbersDrawn}
-            />
+    <ul className={classes["tickets"]}>
+      {registeredPlayers.map((player) => {
+        return (
+          <li key={player.id} className={classes["container"]}>
+            <small className={classes["small"]}>{player.name}</small>
+            <Ticket numbers={player.ticket} numbersDrawn={numbersDrawn} />
           </li>
-        ))}
-      </ul>
-    </section>
+        );
+      })}
+      {unregisteredPlayers.map((player) => {
+        return (
+          <li key={player.id} className={classes["container"]}>
+            <div className={classes["empty-slot"]} />
+          </li>
+        );
+      })}
+    </ul>
   );
-}
+};

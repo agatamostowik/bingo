@@ -1,0 +1,40 @@
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.game-title {
+  display: flex;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.game-title h1 {
+  font-family: "Rye";
+  color: #ff4128;
+  letter-spacing: 30px;
+  font-size: 80px;
+  padding: 0;
+  margin: 0;
+  text-shadow: 2px 3px 2px #000;
+}
+
+.h3 {
+  margin: 0 50px 0 25px;
+  padding: 0;
+  writing-mode: tb;
+  text-orientation: mixed;
+  font-family: "Rye";
+  font-size: 16px;
+  color: #2D4C57;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+}

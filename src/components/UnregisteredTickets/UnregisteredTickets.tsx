@@ -1,64 +1,59 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { generateRandomTicket, randomName } from "../../utils.js";
-import { registrationAction } from "../../redux/actions.js";
-import { RootStateExtracted } from "../../redux/index.js";
+import { useDispatch } from "react-redux";
+import { registrationAction } from "../../redux/actions";
+import { useAppSelector } from "../../redux/index";
 import { Ticket } from "../Ticket/Ticket.js";
-import { BingoTicket } from "../../types.js";
-import "./UnregisteredTickets.css";
+import { Player } from "../../types";
+import classes from "./UnregisteredTickets.module.css";
 
-const initialPlayers = [...Array(10)].map(() => {
-  return { name: randomName(), ticket: generateRandomTicket() };
-});
-
-export function UnregisteredTickets() {
-  const numbersDrawn = useSelector(
-    (state: RootStateExtracted) => state.numbersDrawn
+export const UnregisteredTickets = () => {
+  const numbersDrawn = useAppSelector(
+    (state) => state.bingoReducer.numbersDrawn
   );
 
-  const players = useSelector((state: RootStateExtracted) => state.players);
-  const unregisteredPlayers = initialPlayers.filter((player) => {
-    return !players.some(
-      (p) => p.name === player.name && p.ticket === player.ticket
-    );
-  });
+  const unregisteredPlayers = useAppSelector(
+    (state) => state.bingoReducer.unregisteredPlayers
+  );
 
   return (
-    <section>
-      <h3>Unregistered tickets</h3>
-      <ul className="ticket">
-        {unregisteredPlayers.map((player, i) => (
-          <li key={i}>
-            <RegisterableTicket player={player} numbersDrawn={numbersDrawn} />
-          </li>
-        ))}
-      </ul>
-    </section>
+    <div className={classes["tickets"]}>
+      {!unregisteredPlayers.length ? (
+        <div className={classes["empty"]}>all aboard!</div>
+      ) : (
+        unregisteredPlayers.map((player) => {
+          return (
+            <RegisterableTicket
+              key={player.id}
+              player={player}
+              numbersDrawn={numbersDrawn}
+            />
+          );
+        })
+      )}
+    </div>
   );
-}
+};
 
 type Props = {
-  player: { name: string; ticket: BingoTicket };
+  player: Player;
   numbersDrawn: readonly number[];
 };
 
 function RegisterableTicket(props: Props) {
   const { player, numbersDrawn } = props;
-
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(registrationAction(player.name, player.ticket));
+    dispatch(registrationAction(player.id));
   };
 
   return (
-    <>
-      <Ticket
-        name={player.name}
-        numbers={player.ticket}
-        numbersDrawn={numbersDrawn}
-      />
-      <button onClick={handleClick}>Register ticket</button>
-    </>
+    <div className={classes["container"]}>
+      <small className={classes["small"]}>{player.name}</small>
+      <Ticket numbers={player.ticket} numbersDrawn={numbersDrawn} />
+      <button className={classes["register"]} onClick={handleClick}>
+        Register ticket
+      </button>
+    </div>
   );
 }

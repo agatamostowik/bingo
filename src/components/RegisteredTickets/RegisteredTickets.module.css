@@ -1,0 +1,32 @@
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.small {
+  color: #ff4128;
+  font-family: "Rye";
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 3px;
+  transform: translateX(-50%);
+  font-size: 10px;
+}
+
+.tickets {
+  align-items: center;
+  display: flex;
+  gap: 30px;
+  height: 222px;
+  justify-content: center;
+  width: 100%;
+}
+
+.empty-slot {
+  border: 2px dashed black;
+  border-radius: 8px;
+  height: 202px;
+  width: 142px;
+}

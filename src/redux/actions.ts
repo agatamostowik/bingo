@@ -1,4 +1,4 @@
-import { BingoAction, BingoNumber, BingoTicket } from "../types";
+import { BingoAction, BingoNumber, BingoTicket, Player } from "../types";
 
 export const drawnNumberAction = (): BingoAction => {
   return {
@@ -6,15 +6,11 @@ export const drawnNumberAction = (): BingoAction => {
   };
 };
 
-export const registrationAction = (
-  name: string,
-  ticket: BingoTicket
-): BingoAction => {
+export const registrationAction = (id: Player["id"]): BingoAction => {
   return {
     type: "registered",
     payload: {
-      name: name,
-      ticket: ticket,
+      id,
     },
   };
 };

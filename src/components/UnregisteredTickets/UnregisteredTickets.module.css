@@ -1,0 +1,54 @@
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.small {
+  color: #ff4128;
+  font-family: "Rye";
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 3px;
+  transform: translateX(-50%);
+  font-size: 10px;
+}
+
+.tickets {
+  align-items: center;
+  display: flex;
+  gap: 30px;
+  height: 222px;
+  justify-content: center;
+  width: 100%;
+}
+
+.empty {
+  color: #2D4C57;
+  font-family: "Rye";
+  font-size: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.register {
+  margin-top: 5px;
+  border-radius: 1rem;
+	border: 0.5rem double #2D4C57;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	font-family: 'Rye';
+	font-size: 12px;
+	font-weight: 700;
+	padding: 4px;
+	text-transform: uppercase;
+  color: #2D4C57;
+  cursor: pointer;
+  -webkit-mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+  mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+  mask-size: 944px 604px;
+  -webkit-mask-size: 944px 604px;
+  mix-blend-mode: multiply;
+}

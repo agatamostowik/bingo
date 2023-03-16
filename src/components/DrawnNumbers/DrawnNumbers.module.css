@@ -1,0 +1,52 @@
+.section {
+  display: flex;
+  align-items: flex-start;
+}
+
+.h3 {
+  color: #2D4C57;
+  font-family: "Rye";
+  font-size: 16px;
+  margin: 0 50px 0 25px;
+  padding: 0;
+  text-orientation: mixed;
+  writing-mode: tb;
+}
+
+.drawn {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 5px;
+}
+
+.drawn-number {
+	-webkit-mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+	font-family: 'Rye';
+	font-weight: bold;
+	text-transform: uppercase;
+  -webkit-mask-size: 944px 604px;
+  align-items: center;
+  border-radius: 50%;
+  border: 7px double #ff4128;
+  color: #ff4128;
+  display: flex;
+  font-size: 14px;
+  height: 40px;
+  justify-content: center;
+  mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+  max-height: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  mix-blend-mode: multiply;
+  width: 40px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  flex-grow: 1;
+  width: 100%;
+}

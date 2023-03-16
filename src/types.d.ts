@@ -15,11 +15,14 @@ export type BingoTicket = [
 ]
 
 export type BingoAction =
-    | { type: "registered", payload: { name: string, ticket: BingoTicket } }
+    | { type: "registered", payload: { id: Player["id"] } }
     | { type: "numberDrawn" }
 
-export interface BingoState {
-    readonly players: Readonly<Array<{ name: string, ticket: BingoTicket }>>;
+export type Player = { id: number, name: string, ticket: BingoTicket }
+
+export type BingoState = {
+    readonly unregisteredPlayers: Readonly<Array<Player>>;
+    readonly registeredPlayers: Readonly<Array<Player>>;
     readonly numbersDrawn: readonly number[];
     readonly winners: readonly string[];
     readonly numbers: readonly number[];

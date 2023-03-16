@@ -1,4 +1,6 @@
-import { BingoAction, BingoState } from "../types";
+import { createAction, createSlice } from "@reduxjs/toolkit";
+import { BingoState } from "../types";
+import { generateRandomTicket, randomName } from "../utils";
 import {
   calculateNewWinners,
   calculatePlayersInTheGame,
@@ -9,58 +11,73 @@ const initialNumbers = [...Array(75)].map((_, index) => {
   return index + 1;
 });
 
+const unregisteredPlayers = [...Array(4)].map((_, index) => {
+  return { id: index, name: randomName(), ticket: generateRandomTicket() };
+});
+
 const initialState: BingoState = {
-  players: [],
+  unregisteredPlayers,
+  registeredPlayers: [],
   winners: [],
   numbers: initialNumbers,
   numbersDrawn: [],
 };
 
-export function bingoReducer(
-  state = initialState,
-  action: BingoAction
-): BingoState {
-  switch (action.type) {
-    case "registered": {
-      const flatTicketArray = action.payload.ticket.flat();
-      const set = new Set(flatTicketArray);
-      if (set.size === flatTicketArray.length) {
-        return {
-          ...state,
-          players: [
-            ...state.players,
-            { name: action.payload.name, ticket: action.payload.ticket },
-          ],
-        };
-      } else {
+export const registered = createAction<{ id: number }>("registered");
+export const numberDrawn = createAction("numberDrawn");
+
+export const bingoSlice = createSlice({
+  name: "bingo",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(registered, (state, action) => {
+        const player = state.unregisteredPlayers.find(
+          (player) => player.id === action.payload.id
+        );
+
+        if (player) {
+          return {
+            ...state,
+            unregisteredPlayers: state.unregisteredPlayers.filter(
+              (player) => player.id !== action.payload.id
+            ),
+            registeredPlayers: [...state.registeredPlayers, player],
+          };
+        } else {
+          return state;
+        }
+      })
+      .addCase(numberDrawn, (state) => {
+        const stateWithNewDrawnNumbers =
+          calculateStateWithNewDrawnNumbers(state);
+
+        if (
+          state.numbersDrawn.length ===
+          stateWithNewDrawnNumbers.numbersDrawn.length
+        ) {
+          return state;
+        }
+
+        const playersInTheGame = calculatePlayersInTheGame(
+          stateWithNewDrawnNumbers
+        );
+
+        const newWinners = calculateNewWinners(
+          stateWithNewDrawnNumbers.numbersDrawn,
+          stateWithNewDrawnNumbers.winners,
+          playersInTheGame
+        );
+
+        return { ...stateWithNewDrawnNumbers, winners: newWinners };
+      })
+
+      .addDefaultCase((state) => {
         return state;
-      }
-    }
+      });
+  },
+});
 
-    case "numberDrawn": {
-      const stateWithNewDrawnNumbers = calculateStateWithNewDrawnNumbers(state);
-
-      if (
-        state.numbersDrawn.length ===
-        stateWithNewDrawnNumbers.numbersDrawn.length
-      ) {
-        return state;
-      }
-
-      const playersInTheGame = calculatePlayersInTheGame(
-        stateWithNewDrawnNumbers
-      );
-
-      const newWinners = calculateNewWinners(
-        stateWithNewDrawnNumbers.numbersDrawn,
-        stateWithNewDrawnNumbers.winners,
-        playersInTheGame
-      );
-
-      return { ...stateWithNewDrawnNumbers, winners: newWinners };
-    }
-
-    default:
-      return state;
-  }
-}
+// export const { registered, numberDrawn } = bingoSlice.actions
+export default bingoSlice.reducer;

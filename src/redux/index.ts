@@ -1,8 +1,16 @@
-import { createStore } from "redux";
-import { composeWithDevTools } from "@redux-devtools/extension";
-import { bingoReducer } from "./bingoReducer";
+import bingoReducer from "./bingoReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import type { TypedUseSelectorHook } from "react-redux";
 
-export const store = createStore(bingoReducer, composeWithDevTools());
+export const store = configureStore({
+  reducer: {
+    bingoReducer,
+  },
+});
 
-export type RootStore = typeof store;
-export type RootStateExtracted = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
